@@ -731,8 +731,6 @@ section {
     color: var(--main-color);
 }
 
-=======
->>>>>>> 09d0922a9aa6412924d74d8b2e14f156e5d18bc9
 @media (max-width: 450px) {
     html {
         font-size: 50%;
