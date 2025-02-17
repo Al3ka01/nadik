@@ -544,6 +544,8 @@ section {
     padding: 50px 20px;
     background-color: var(--bg);
     position: relative;
+    width: 500px;
+    height: 500px;
 }
 
 .gallery .heading {
@@ -562,6 +564,68 @@ section {
     position: relative;
 }
 
+.gallery {
+    text-align: center;
+    padding: 20px;
+}
+.gallery-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    max-width: 600px;
+    overflow: hidden;
+}
+.gallery-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+.gallery-wrapper a {
+    min-width: 150px;
+    margin: 5px;
+    cursor: pointer;
+}
+.gallery-wrapper img {
+    width: 150px;
+    height: auto;
+    border-radius: 5px;
+}
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+.prev-btn { left: 0; }
+.next-btn { right: 0; }
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
 .gallery-wrapper {
     display: flex;
     gap: 15px;
@@ -715,7 +779,13 @@ section {
     border: var(--border);
     font-size: 2rem;
 }
-
+.modal-image {
+    max-width: 80%;
+    height: auto;
+    margin: 15px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
 .footer .links a:hover{
     background: var(--main-color);
 }
@@ -731,10 +801,16 @@ section {
     color: var(--main-color);
 }
 
-=======
->>>>>>> 09d0922a9aa6412924d74d8b2e14f156e5d18bc9
+
 @media (max-width: 450px) {
     html {
         font-size: 50%;
     }
+}
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 24px;
 }
