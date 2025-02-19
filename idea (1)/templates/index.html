@@ -61,6 +61,70 @@ nextBtn.addEventListener('click', () => {
     });
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const wrapper = document.querySelector(".gallery-wrapper");
+    const prevBtn = document.querySelector(".prev-btn");
+    const nextBtn = document.querySelector(".next-btn");
+
+    let scrollSpeed = 1.5; // Скорость прокрутки
+    let autoScroll;
+    let isScrolling = false;
+
+    // Дублируем элементы для эффекта бесконечной карусели
+    function duplicateItems() {
+        let items = Array.from(wrapper.children);
+        items.forEach(item => {
+            let clone = item.cloneNode(true);
+            wrapper.appendChild(clone);
+        });
+    }
+
+    duplicateItems(); // Дублируем элементы
+
+    // Функция автопрокрутки
+    function startAutoScroll() {
+        autoScroll = setInterval(() => {
+            wrapper.scrollLeft += scrollSpeed;
+
+            // Если дошли до конца видимой области, перескакиваем в начало
+            if (wrapper.scrollLeft >= wrapper.scrollWidth / 2) {
+                wrapper.scrollLeft = 0;
+            }
+        }, 20);
+    }
+
+    function stopAutoScroll() {
+        clearInterval(autoScroll);
+    }
+
+    function moveNext() {
+        if (isScrolling) return;
+        isScrolling = true;
+
+        wrapper.scrollBy({ left: 300, behavior: "smooth" });
+
+        setTimeout(() => {
+            // Если дошли до конца списка, просто перенастроим на начало
+            if (wrapper.scrollLeft >= wrapper.scrollWidth / 2) {
+                wrapper.scrollLeft = 0;
+            }
+            isScrolling = false;
+        }, 500);
+    }
+
+    // Запускаем автопрокрутку
+    startAutoScroll();
+
+    // Останавливаем при наведении мыши
+    wrapper.addEventListener("mouseenter", stopAutoScroll);
+    wrapper.addEventListener("mouseleave", startAutoScroll);
+
+    // Обрабатываем нажатия кнопок
+    nextBtn.addEventListener("click", moveNext);
+});
+
+</script>
 <body>
 
 <!-- header ashyldy -->
@@ -157,19 +221,6 @@ nextBtn.addEventListener('click', () => {
             <a href="page4.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Почвофреза-навесная-removebg-preview.png" alt="Товар 4"></a>
             <a href="page5.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Разбрасыватель-мин-удобрений-removebg-preview.png" alt="Товар 5"></a>
             <a href="page6.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Садовая-косилка-removebg-preview.png" alt="Товар 6"></a>
-            <a href="page1.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/опрыскиватель-removebg-preview.png" alt="Товар 1"></a>
-            <a href="page2.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Косилка-роторная-навесная-removebg-preview.png" alt="Товар 2"></a>
-            <a href="page3.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/КосилкароторнаяZ-178-HYD-4-removebg-preview.png" alt="Товар 3"></a>
-            <a href="page4.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Почвофреза-навесная-removebg-preview.png" alt="Товар 4"></a>
-            <a href="page5.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Разбрасыватель-мин-удобрений-removebg-preview.png" alt="Товар 5"></a>
-            <a href="page6.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Садовая-косилка-removebg-preview.png" alt="Товар 6"></a>
-            <a href="page1.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/опрыскиватель-removebg-preview.png" alt="Товар 1"></a>
-            <a href="page2.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Косилка-роторная-навесная-removebg-preview.png" alt="Товар 2"></a>
-            <a href="page3.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/КосилкароторнаяZ-178-HYD-4-removebg-preview.png" alt="Товар 3"></a>
-            <a href="page4.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Почвофреза-навесная-removebg-preview.png" alt="Товар 4"></a>
-            <a href="page5.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Разбрасыватель-мин-удобрений-removebg-preview.png" alt="Товар 5"></a>
-            <a href="page6.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Садовая-косилка-removebg-preview.png" alt="Товар 6"></a>
-
 
         <button class="next-btn">›</button> <!-- Кнопка вправо -->
     </div>
@@ -249,8 +300,7 @@ nextBtn.addEventListener('click', () => {
     
     <div class="row">
 
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d80029.2356436822!2d71.20480729726557!3d51.18381510000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4245871991164b69%3A0xe4b2dd43a473b958!2sAkjol-%20inc!5e0!3m2!1sru!2skz!4v1703427411171!5m2!1sru!2skz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2500.7678180326316!2d71.49426217648286!3d51.1865021717421!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4245804d7f864a5d%3A0xbd921c966c085c3!2z0YPQuy4g0JDQu9C10LrRgdCw0L3QtNGA0LAg0J_Rg9GI0LrQuNC90LAgNTgsINCQ0YHRgtCw0L3QsCAwMTAwMDA!5e0!3m2!1sru!2skz!4v1739824939989!5m2!1sru!2skz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <form action="">
             <h3>Написать нам</h3>
             <div class="inputBox">
