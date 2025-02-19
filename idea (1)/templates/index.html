@@ -41,25 +41,7 @@ window.onscroll = () =>{
 }
 
 
-const prevBtn = document.querySelector('.prev-btn');
-const nextBtn = document.querySelector('.next-btn');
-const galleryWrapper = document.querySelector('.gallery-wrapper');
 
-// Для кнопки "предыдущий"
-prevBtn.addEventListener('click', () => {
-    galleryWrapper.scrollBy({
-        left: -250,  // Уменьшаем на 250px (ширина одного элемента)
-        behavior: 'smooth',
-    });
-});
-
-// Для кнопки "следующий"
-nextBtn.addEventListener('click', () => {
-    galleryWrapper.scrollBy({
-        left: 250,  // Увеличиваем на 250px (ширина одного элемента)
-        behavior: 'smooth',
-    });
-});
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -144,7 +126,6 @@ document.addEventListener("DOMContentLoaded", function () {
     </nav>
 
     <div class="icons">
-        <div class="fas fa-search" id="search-btn"></div>
         <div class="fas fa-shopping-cart" id="cart-btn"></div>
         <div class="fas fa-bars" id="menu-btn"></div>
     </div>
@@ -209,20 +190,188 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <!-- menu ashyldy -->
 <section class="gallery" id="gallery">
-    <h1 class="heading"> Наши <span> товары</span></h1>
-
+    <h1 class="heading">Наши <span>товары</span></h1>
     <div class="gallery-container">
-        <button class="prev-btn">‹</button> <!-- Кнопка влево -->
-
+        <button class="prev-btn">‹</button>
         <div class="gallery-wrapper">
+<<<<<<< HEAD
+=======
+
+            <img src="/idea (1)/templates/Online-Ticketing-System-main/img/4.jpg" 
+                 onclick="openModal('Опрыскиватель', 'Профессиональный опрыскиватель для сельского хозяйства', this.src)" 
+                 alt="Косилка роторная" 
+                 width="1000" 
+                 height="1000">
+            <img src="/idea (1)/templates/Online-Ticketing-System-main/img/9.jpg" 
+                 onclick="openModal('Косилка роторная', 'Роторная косилка для травы и мелкого кустарника', this.src)" 
+                 alt="Косилка роторная" 
+                 width="400" 
+                 height="300">
+            <img src="/idea (1)/templates/Online-Ticketing-System-main/img/8.jpg" 
+                 onclick="openModal('Косилка Z-178', 'Мощная косилка для профессионального использования', this.src)" 
+                 alt="Косилка Z-178" 
+                 width="400" 
+                 height="300">
+            <img src="/idea (1)/templates/Online-Ticketing-System-main/img/3.jpg" 
+                 onclick="openModal('Почвофреза', 'Фреза для обработки почвы любой сложности', this.src)" 
+                 alt="Почвофреза" 
+                 width="400" 
+                 height="300">
+            <img src="/idea (1)/templates/Online-Ticketing-System-main/img/17.jpg" 
+                 onclick="openModal('Разбрасыватель', 'Универсальный разбрасыватель удобрений', this.src)" 
+                 alt="Разбрасыватель" 
+                 width="400" 
+                 height="300">
+            <img src="/idea (1)/templates/Online-Ticketing-System-main/img/18.jpg" 
+                 onclick="openModal('Садовая косилка', 'Компактная косилка для садовых участков', this.src)" 
+                 alt="Садовая косилка" 
+                 width="400" 
+                 height="300">
+        </div>
+        <button class="next-btn">›</button>
+    </div>
+</section>
+
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modal-title"></h2>
+        <img id="modal-image" class="modal-image" src="" alt="Изображение товара">
+        <p id="modal-description"></p>
+    </div>
+</div>
+
+<style>
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+}
+
+.modal-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    margin: 15px 0;
+    border-radius: 5px;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 35px;
+    cursor: pointer;
+}
+</style>
+
+<script>
+const galleryWrapper = document.querySelector('.gallery-wrapper');
+const prevBtn = document.querySelector('.prev-btn');
+const nextBtn = document.querySelector('.next-btn');
+const modal = document.getElementById('modal');
+let scrollAmount = 0;
+const scrollStep = 300;
+
+// Обработчики для галереи
+prevBtn.addEventListener('click', () => {
+    scrollAmount = Math.max(scrollAmount - scrollStep, 0);
+    galleryWrapper.style.transform = `translateX(-${scrollAmount}px)`;
+});
+
+nextBtn.addEventListener('click', () => {
+    const maxScroll = galleryWrapper.scrollWidth - galleryWrapper.clientWidth;
+    scrollAmount = Math.min(scrollAmount + scrollStep, maxScroll);
+    galleryWrapper.style.transform = `translateX(-${scrollAmount}px)`;
+});
+
+// Функции модального окна
+function openModal(title, description, imgSrc) {
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('modal-description').textContent = description;
+    document.getElementById('modal-image').src = imgSrc;
+    modal.style.display = 'flex';
+}
+
+function closeModal() {
+    modal.style.display = 'none';
+    document.getElementById('modal-image').src = '';
+}
+
+// Закрытие по клику вне окна и ESC
+modal.addEventListener('click', (e) => {
+    if(e.target === modal) closeModal();
+});
+
+document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeModal();
+});
+</script>
+
+=======
+<<<<<<< HEAD
+            <a href="page1.html"><img src="опрыскиватель-removebg-preview.png" alt="Товар 1"></a>
+            <a href="page2.html"><img src="Косилка-роторная-навесная-removebg-preview.png" alt="Товар 2"></a>
+            <a href="page3.html"><img src="КосилкароторнаяZ-178-HYD-4-removebg-preview.png" alt="Товар 3"></a>
+            <a href="page4.html"><img src="Почвофреза-навесная-removebg-preview.png" alt="Товар 4"></a>
+            <a href="page5.html"><img src="Разбрасыватель-мин-удобрений-removebg-preview.png" alt="Товар 5"></a>
+            <a href="page6.html"><img src="Садовая-косилка-removebg-preview.png" alt="Товар 6"></a>
+            <a href="page1.html"><img src="fon.jpg" alt="Товар 1"></a>
+            <a href="page2.html"><img src="fon.jpg" alt="Товар 2"></a>
+            <a href="page3.html"><img src="fon.jpg" alt="Товар 3"></a>
+            <a href="page4.html"><img src="fon.jpg" alt="Товар 4"></a>
+            <a href="page5.html"><img src="fon.jpg" alt="Товар 5"></a>
+            <a href="page6.html"><img src="fon.jpg" alt="Товар 6"></a>
+            <a href="page1.html"><img src="fon.jpg" alt="Товар 1"></a>
+            <a href="page2.html"><img src="fon.jpg" alt="Товар 2"></a>
+            <a href="page3.html"><img src="fon.jpg" alt="Товар 3"></a>
+            <a href="page4.html"><img src="fon.jpg" alt="Товар 4"></a>
+            <a href="page5.html"><img src="fon.jpg" alt="Товар 5"></a>
+            <a href="page6.html"><img src="fon.jpg" alt="Товар 6"></a>
+        </div>
+=======
+>>>>>>> 36d46485d5b129f349ab5adea7316f33adeca8b8
             <a href="page1.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/опрыскиватель-removebg-preview.png" alt="Товар 1"></a>
             <a href="page2.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Косилка-роторная-навесная-removebg-preview.png" alt="Товар 2"></a>
             <a href="page3.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/КосилкароторнаяZ-178-HYD-4-removebg-preview.png" alt="Товар 3"></a>
             <a href="page4.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Почвофреза-навесная-removebg-preview.png" alt="Товар 4"></a>
             <a href="page5.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Разбрасыватель-мин-удобрений-removebg-preview.png" alt="Товар 5"></a>
             <a href="page6.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Садовая-косилка-removebg-preview.png" alt="Товар 6"></a>
+<<<<<<< HEAD
+=======
+            <a href="page1.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/опрыскиватель-removebg-preview.png" alt="Товар 1"></a>
+            <a href="page2.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Косилка-роторная-навесная-removebg-preview.png" alt="Товар 2"></a>
+            <a href="page3.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/КосилкароторнаяZ-178-HYD-4-removebg-preview.png" alt="Товар 3"></a>
+            <a href="page4.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Почвофреза-навесная-removebg-preview.png" alt="Товар 4"></a>
+            <a href="page5.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Разбрасыватель-мин-удобрений-removebg-preview.png" alt="Товар 5"></a>
+            <a href="page6.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Садовая-косилка-removebg-preview.png" alt="Товар 6"></a>
+            <a href="page1.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/опрыскиватель-removebg-preview.png" alt="Товар 1"></a>
+            <a href="page2.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Косилка-роторная-навесная-removebg-preview.png" alt="Товар 2"></a>
+            <a href="page3.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/КосилкароторнаяZ-178-HYD-4-removebg-preview.png" alt="Товар 3"></a>
+            <a href="page4.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Почвофреза-навесная-removebg-preview.png" alt="Товар 4"></a>
+            <a href="page5.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Разбрасыватель-мин-удобрений-removebg-preview.png" alt="Товар 5"></a>
+            <a href="page6.html"><img src="/idea (1)/templates/Online-Ticketing-System-main/img/Садовая-косилка-removebg-preview.png" alt="Товар 6"></a>
+>>>>>>> 19293af016dcdd74f84318ae0ddbaf0f2cbdb328
 
-        <button class="next-btn">›</button> <!-- Кнопка вправо -->
+>>>>>>> 7c99cfa1f8f4df8b4a68b864245c6965d1b1f591
+>>>>>>> 36d46485d5b129f349ab5adea7316f33adeca8b8
+
     </div>
 </section>
 
@@ -472,7 +621,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </section>
 <!-- footer zhabyldy  -->
 
-<script src="script.js"></script>
+<!-- <script src="script.js"></script> -->
 
 </body>
 </html>
